@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown Timer with Voice Alert</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7f7f7;
+  }
+  #countdown {
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+  <!-- HTML部分开始 -->  
+  <div id="countdown"> <!-- 倒计时容器 -->  
+    <h1>Countdown Timer</h1> <!-- 倒计时标题 -->  
+    <input type="number" id="secondsInput" placeholder="Enter seconds" /> <!-- 输入框，用于输入倒计时的秒数 -->  
+    <button onclick="startTimer()">Start Countdown</button> <!-- 开始倒计时的按钮 -->  
+    <div id="timer"> <!-- 倒计时显示容器 -->  
+      <span id="time"></span> <!-- 显示剩余秒数的位置 -->  
+      Seconds <!-- 秒数单位 -->  
+    </div>  
+  </div>  
+  
+  <script>  
+    // 声明一个变量，用于存储定时器的ID  
+    var countdownInterval;  
+  
+    // 定义一个函数，用于朗读文本  
+    function speak(text) {  
+      var speech = new SpeechSynthesisUtterance(text); // 创建语音合成对象  
+      window.speechSynthesis.speak(speech); // 开始朗读文本  
+    }  
+  
+    // 定义开始倒计时的函数  
+    function startTimer() {  
+      clearInterval(countdownInterval); // 清除之前可能存在的定时器  
+  
+      var seconds = document.getElementById("secondsInput").value; // 获取用户输入的秒数  
+  
+      var countDownTime = new Date().getTime() + seconds * 1000; // 计算倒计时结束的时间点  
+  
+      countdownInterval = setInterval(function() {  
+        var now = new Date().getTime(); // 获取当前时间  
+  
+        var distance = countDownTime - now; // 计算距离倒计时结束还有多少毫秒  
+  
+        var remainingSeconds = Math.floor(distance / 1000); // 计算剩余的秒数  
+  
+        document.getElementById("time").innerHTML = remainingSeconds; // 更新页面上的剩余秒数  
+  
+        if (distance < 0) { // 如果倒计时已经结束  
+          clearInterval(countdownInterval); // 清除定时器  
+          document.getElementById("time").innerHTML = "EXPIRED"; // 显示“EXPIRED”  
+          speak("Time expired"); // 朗读“Time expired”  
+        }  
+  
+        if (remainingSeconds % 30 === 0) { // 如果剩余的秒数是30的倍数  
+          speak(remainingSeconds + " seconds remaining"); // 朗读剩余的秒数  
+        }  
+      }, 1000); // 每1000豪秒执行一次  
+    }  
+  </script>  
+  
+  <!-- HTML和JavaScript部分结束 -->  
+</body>
+</html>
