@@ -65,7 +65,7 @@
           speak("Time expired"); // 朗读“Time expired”  
         }  
   
-        if (remainingSeconds % 30 === 0) { // 如果剩余的秒数是30的倍数  
+        if (remainingSeconds % 60 === 0) { // 如果剩余的秒数是60的倍数  
           speak(remainingSeconds + " seconds remaining"); // 朗读剩余的秒数  
         }  
       }, 1000); // 每1000豪秒执行一次  
