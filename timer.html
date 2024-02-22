@@ -21,17 +21,45 @@
 </head>
 <body>
 
+
+
+
+
   <!-- HTML部分开始 -->  
-  <div id="countdown"> <!-- 倒计时容器 -->  
-    <h1>Countdown Timer</h1> <!-- 倒计时标题 -->  
-    <input type="number" id="secondsInput" placeholder="Enter seconds" /> <!-- 输入框，用于输入倒计时的秒数 -->  
-    <button onclick="startTimer()">Start Countdown</button> <!-- 开始倒计时的按钮 -->  
-    <div id="timer"> <!-- 倒计时显示容器 -->  
-      <span id="time"></span> <!-- 显示剩余秒数的位置 -->  
-      Seconds <!-- 秒数单位 -->  
+
+
+  <!-- 第一个计时器 -->  
+  <div id="countdown-timer-1">  
+    <h1>Countdown Timer 1</h1>  
+    <input type="number" id="secondsInput1" placeholder="Enter seconds" />  <!-- 输入框，用于输入倒计时的秒数 -->  
+    <button onclick="startTimer('timer-1')">Start Countdown</button>    <!-- 开始倒计时的按钮 -->  
+    <div id="timer-1">  <!-- 倒计时显示容器 -->  
+      <span id="time1"></span> Seconds   <!-- 显示剩余秒数的位置 --> 
     </div>  
-  </div>  
-  
+  </div> 
+
+
+  <!-- 第二个计时器 -->  
+  <div id="countdown-timer-2">  
+    <h1>Countdown Timer 2</h1>  
+    <input type="number" id="secondsInput2" placeholder="Enter seconds" />  <!-- 输入框，用于输入倒计时的秒数 -->  
+    <button onclick="startTimer('timer-2')">Start Countdown</button>    <!-- 开始倒计时的按钮 -->  
+    <div id="timer-2">  <!-- 倒计时显示容器 -->  
+      <span id="time2"></span> Seconds   <!-- 显示剩余秒数的位置 --> 
+    </div>  
+  </div> 
+
+  <!-- 第三个计时器 -->  
+  <div id="countdown-timer-3">  
+    <h1>Countdown Timer 3</h1>  
+    <input type="number" id="secondsInput3" placeholder="Enter seconds" />  <!-- 输入框，用于输入倒计时的秒数 -->  
+    <button onclick="startTimer('timer-3')">Start Countdown</button>    <!-- 开始倒计时的按钮 -->  
+    <div id="timer-3">  <!-- 倒计时显示容器 -->  
+      <span id="time3"></span> Seconds   <!-- 显示剩余秒数的位置 --> 
+    </div>  
+  </div> 
+
+
   <script>  
     // 声明一个变量，用于存储定时器的ID  
     var countdownInterval;  
@@ -43,10 +71,12 @@
     }  
   
     // 定义开始倒计时的函数  
-    function startTimer() {  
+    function startTimer(timerId) {  
       clearInterval(countdownInterval); // 清除之前可能存在的定时器  
   
-      var seconds = document.getElementById("secondsInput").value; // 获取用户输入的秒数  
+
+      var secondsInputId = timerId.replace('timer-', 'secondsInput');  // replace() 方法来替换字符串中的 'timer-' 子字符串为 'secondsInput'。如果 timerId 是 'timer-1'，那么 secondsInputId 将变成 'secondsInput1'。
+      var seconds = document.getElementById(secondsInputId).value;  // 获取用户输入的秒数  
   
       var countDownTime = new Date().getTime() + seconds * 1000; // 计算倒计时结束的时间点  
   
@@ -57,11 +87,11 @@
   
         var remainingSeconds = Math.floor(distance / 1000); // 计算剩余的秒数  
   
-        document.getElementById("time").innerHTML = remainingSeconds; // 更新页面上的剩余秒数  
+        document.getElementById(timerId.replace('timer-', 'time')).innerHTML = remainingSeconds;  // 更新页面上的剩余秒数  
   
         if (distance < 0) { // 如果倒计时已经结束  
           clearInterval(countdownInterval); // 清除定时器  
-          document.getElementById("time").innerHTML = "EXPIRED"; // 显示“EXPIRED”  
+          document.getElementById(timerId.replace('timer-', 'time')).innerHTML = "EXPIRED";  // 显示“EXPIRED”  
           speak("Time expired"); // 朗读“Time expired”  
         }  
   
@@ -71,7 +101,14 @@
       }, 1000); // 每1000豪秒执行一次  
     }  
   </script>  
-  
+ 
+
+
+
+
+
+
+
   <!-- HTML和JavaScript部分结束 -->  
 </body>
 </html>
